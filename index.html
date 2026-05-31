@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>업무 도구 통합센터</title>
+  <meta name="description" content="카드 혜택 계산기, 구독 계산기, 플랜카드 계산기, 모바일 TCO 계산기, 하이마트 제품 검색툴을 한곳에서 바로 접속하는 통합 랜딩페이지" />
+  <meta name="theme-color" content="#101828" />
+
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --bg-deep: #e9eef7;
+      --card: rgba(255, 255, 255, 0.78);
+      --card-solid: #ffffff;
+      --text: #182230;
+      --muted: #667085;
+      --line: rgba(16, 24, 40, 0.1);
+      --primary: #1455ff;
+      --primary-deep: #0b3dcc;
+      --soft-blue: #eef4ff;
+      --soft-green: #ecfdf3;
+      --soft-orange: #fff6ed;
+      --soft-purple: #f4f3ff;
+      --shadow: 0 18px 50px rgba(16, 24, 40, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(20, 85, 255, 0.16), transparent 34%),
+        radial-gradient(circle at 85% 12%, rgba(116, 64, 255, 0.16), transparent 30%),
+        linear-gradient(145deg, var(--bg), var(--bg-deep));
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      padding: 22px 18px calc(26px + var(--safe-bottom));
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 34px;
+      padding: 28px 22px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.56)),
+        linear-gradient(145deg, rgba(20, 85, 255, 0.12), rgba(255, 255, 255, 0));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 220px;
+      height: 220px;
+      right: -82px;
+      top: -70px;
+      background: rgba(20, 85, 255, 0.11);
+    }
+
+    .hero::after {
+      width: 120px;
+      height: 120px;
+      right: 42px;
+      bottom: -54px;
+      background: rgba(116, 64, 255, 0.12);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(20, 85, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(238, 244, 255, 0.75);
+      color: #1849c6;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 0 6px rgba(20, 85, 255, 0.12);
+    }
+
+    h1 {
+      margin: 18px 0 10px;
+      font-size: clamp(30px, 7vw, 58px);
+      line-height: 1.06;
+      letter-spacing: -0.075em;
+      font-weight: 900;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.68;
+      letter-spacing: -0.025em;
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .hero-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 999px;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .hero-button.primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #663dff);
+      box-shadow: 0 14px 28px rgba(20, 85, 255, 0.24);
+    }
+
+    .hero-button.secondary {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+      color: #344054;
+    }
+
+    .hero-button:active,
+    .tool-card:active {
+      transform: scale(0.985);
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      margin: 18px 0 14px;
+      padding: 10px 0;
+      background: linear-gradient(180deg, rgba(244, 247, 251, 0.94), rgba(244, 247, 251, 0.72));
+      backdrop-filter: blur(14px);
+    }
+
+    .search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 0 15px;
+      border: 1px solid rgba(16, 24, 40, 0.1);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 10px 28px rgba(16, 24, 40, 0.07);
+    }
+
+    .search-icon {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: #475467;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 750;
+      letter-spacing: -0.03em;
+    }
+
+    .search-wrap input::placeholder {
+      color: #98a2b3;
+      font-weight: 650;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 22px 2px 14px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.055em;
+      line-height: 1.2;
+    }
+
+    .section-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+      letter-spacing: -0.025em;
+    }
+
+    .count-pill {
+      flex: 0 0 auto;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      color: #475467;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .tool-card {
+      grid-column: span 12;
+      position: relative;
+      overflow: hidden;
+      min-height: 236px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: var(--radius-xl);
+      background: var(--card);
+      box-shadow: 0 14px 38px rgba(16, 24, 40, 0.09);
+      backdrop-filter: blur(16px);
+      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+    }
+
+    .tool-card::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -76px;
+      top: -74px;
+      border-radius: 999px;
+      opacity: 0.9;
+      background: var(--accent-bg, var(--soft-blue));
+    }
+
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 56px rgba(16, 24, 40, 0.14);
+      border-color: rgba(20, 85, 255, 0.2);
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 200px;
+    }
+
+    .topline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: var(--accent, var(--primary));
+      background: var(--accent-bg, var(--soft-blue));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+      flex: 0 0 auto;
+    }
+
+    .icon-box svg {
+      width: 28px;
+      height: 28px;
+      stroke-width: 2.1;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      color: var(--accent, var(--primary));
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .tool-card h3 {
+      margin: 18px 0 8px;
+      font-size: 22px;
+      line-height: 1.25;
+      letter-spacing: -0.055em;
+      font-weight: 950;
+    }
+
+    .tool-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.58;
+      letter-spacing: -0.035em;
+      word-break: keep-all;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: auto;
+      padding-top: 20px;
+    }
+
+    .card-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .card-button.open {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent, var(--primary)), var(--accent-deep, var(--primary-deep)));
+      box-shadow: 0 10px 24px color-mix(in srgb, var(--accent, var(--primary)) 26%, transparent);
+    }
+
+    .card-button.repo {
+      color: #344054;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(16, 24, 40, 0.1);
+    }
+
+    .card-button:active {
+      transform: scale(0.98);
+    }
+
+    .notice {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid rgba(16, 24, 40, 0.08);
+      background: rgba(255, 255, 255, 0.64);
+      color: #475467;
+      line-height: 1.65;
+      font-size: 14px;
+      letter-spacing: -0.025em;
+      word-break: keep-all;
+    }
+
+    .notice strong {
+      color: var(--text);
+    }
+
+    .empty {
+      display: none;
+      margin: 26px 0 10px;
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px dashed rgba(16, 24, 40, 0.18);
+      color: #667085;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.52);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    footer {
+      margin: 24px 0 0;
+      color: #667085;
+      font-size: 13px;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+
+    @media (min-width: 720px) {
+      .page {
+        padding: 34px 26px 38px;
+      }
+
+      .hero {
+        padding: 42px;
+      }
+
+      .grid {
+        gap: 18px;
+      }
+
+      .tool-card {
+        grid-column: span 6;
+        padding: 22px;
+      }
+    }
+
+    @media (min-width: 1000px) {
+      .tool-card.featured {
+        grid-column: span 8;
+      }
+
+      .tool-card.small {
+        grid-column: span 4;
+      }
+
+      .tool-card {
+        grid-column: span 4;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1220;
+        --bg-deep: #111827;
+        --card: rgba(17, 25, 40, 0.74);
+        --card-solid: #111827;
+        --text: #f8fafc;
+        --muted: #aab4c5;
+        --line: rgba(255, 255, 255, 0.1);
+        --soft-blue: rgba(20, 85, 255, 0.16);
+        --soft-green: rgba(18, 183, 106, 0.15);
+        --soft-orange: rgba(247, 144, 9, 0.14);
+        --soft-purple: rgba(116, 64, 255, 0.16);
+      }
+
+      body {
+        background:
+          radial-gradient(circle at 10% 0%, rgba(20, 85, 255, 0.22), transparent 36%),
+          radial-gradient(circle at 86% 8%, rgba(116, 64, 255, 0.2), transparent 32%),
+          linear-gradient(145deg, var(--bg), var(--bg-deep));
+      }
+
+      .hero,
+      .search-wrap,
+      .notice,
+      .empty {
+        background: rgba(17, 25, 40, 0.72);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .toolbar {
+        background: linear-gradient(180deg, rgba(11, 18, 32, 0.94), rgba(11, 18, 32, 0.72));
+      }
+
+      .hero-button.secondary,
+      .count-pill,
+      .card-button.repo,
+      .tag {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: #e4e7ec;
+      }
+
+      .search-wrap input {
+        color: #f8fafc;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-inner">
+        <div class="eyebrow"><span class="dot"></span> Hi-Mart Work Tools Hub</div>
+        <h1 id="page-title">업무 도구<br />통합센터</h1>
+        <p class="hero-copy">
+          카드 혜택, 구독 비교, 플랜카드, 모바일 TCO, 하이마트 제품 검색까지 자주 쓰는 계산기와 검색툴을 한곳에 모았습니다.
+          모바일 상담 중에도 필요한 페이지를 빠르게 열 수 있도록 카드형 랜딩페이지로 구성했습니다.
+        </p>
+        <div class="hero-actions">
+          <a class="hero-button primary" href="#tools">도구 바로 보기</a>
+          <a class="hero-button secondary" href="https://github.com/CWFht" target="_blank" rel="noopener noreferrer">GitHub 전체 보기</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="toolbar" aria-label="도구 검색 영역">
+      <label class="search-wrap">
+        <span class="search-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 21l-4.3-4.3" stroke-linecap="round" />
+            <circle cx="11" cy="11" r="7" />
+          </svg>
+        </span>
+        <input id="searchInput" type="search" placeholder="필요한 도구 검색하기 예: 카드, 구독, TCO" autocomplete="off" />
+      </label>
+    </div>
+
+    <section id="tools" aria-labelledby="tools-title">
+      <div class="section-head">
+        <div>
+          <h2 id="tools-title">바로가기 도구</h2>
+          <p>상담/비교/검색에 자주 쓰는 페이지</p>
+        </div>
+        <div class="count-pill"><span id="visibleCount">5</span>개 도구</div>
+      </div>
+
+      <div class="grid" id="toolGrid">
+        <article class="tool-card featured" data-keywords="카드 혜택 계산기 카드혜택 할인 캐시백 결제 혜택">
+          <div class="card-content">
+            <div class="topline">
+              <div class="icon-box" style="--accent:#1455ff; --accent-bg:#eef4ff;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="3" y="5" width="18" height="14" rx="3" />
+                  <path d="M3 10h18" stroke-linecap="round" />
+                  <path d="M7 15h3" stroke-linecap="round" />
+                </svg>
+              </div>
+              <span class="tag" style="--accent:#1455ff;">CARD BENEFIT</span>
+            </div>
+            <h3>카드 혜택 계산기</h3>
+            <p>카드 결제 혜택, 청구할인, 캐시백 등 실제 체감 혜택을 빠르게 비교할 때 사용하는 계산기입니다.</p>
+            <div class="card-actions">
+              <a class="card-button open" style="--accent:#1455ff; --accent-deep:#0b3dcc;" href="https://cwfht.github.io/cardbenefit_jungmj/" target="_blank" rel="noopener noreferrer">페이지 열기</a>
+              <a class="card-button repo" href="https://github.com/CWFht/cardbenefit_jungmj" target="_blank" rel="noopener noreferrer">저장소</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card small" data-keywords="구독 계산기 안심케어 홈서비스 클리닝 보증 일반구매 구독구매">
+          <div class="card-content">
+            <div class="topline">
+              <div class="icon-box" style="--accent:#12b76a; --accent-bg:#ecfdf3;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M7 7h10" stroke-linecap="round" />
+                  <path d="M7 12h7" stroke-linecap="round" />
+                  <path d="M7 17h4" stroke-linecap="round" />
+                  <rect x="4" y="3" width="16" height="18" rx="4" />
+                </svg>
+              </div>
+              <span class="tag" style="--accent:#12b76a;">SUBSCRIBE</span>
+            </div>
+            <h3>구독 계산기</h3>
+            <p>일반구매와 구독구매의 총액, 보증, 클리닝 혜택을 상담용으로 비교하는 계산기입니다.</p>
+            <div class="card-actions">
+              <a class="card-button open" style="--accent:#12b76a; --accent-deep:#039855;" href="https://cwfht.github.io/homecwfht.github.io/" target="_blank" rel="noopener noreferrer">페이지 열기</a>
+              <a class="card-button repo" href="https://github.com/CWFht/homecwfht.github.io" target="_blank" rel="noopener noreferrer">저장소</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card" data-keywords="플랜카드 계산기 롯데 플랜카드 약정 카드혜택 롤라머니 캐시백">
+          <div class="card-content">
+            <div class="topline">
+              <div class="icon-box" style="--accent:#f79009; --accent-bg:#fff6ed;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M4 7.5A3.5 3.5 0 0 1 7.5 4h9A3.5 3.5 0 0 1 20 7.5v9a3.5 3.5 0 0 1-3.5 3.5h-9A3.5 3.5 0 0 1 4 16.5v-9Z" />
+                  <path d="M8 12h8" stroke-linecap="round" />
+                  <path d="M12 8v8" stroke-linecap="round" />
+                </svg>
+              </div>
+              <span class="tag" style="--accent:#f79009;">PLAN CARD</span>
+            </div>
+            <h3>플랜카드 계산기</h3>
+            <p>플랜약정, 월 실적, 캐시백, 롤라머니 등 플랜카드 혜택을 한눈에 정리하는 도구입니다.</p>
+            <div class="card-actions">
+              <a class="card-button open" style="--accent:#f79009; --accent-deep:#dc6803;" href="https://cwfht.github.io/lotteplan/" target="_blank" rel="noopener noreferrer">페이지 열기</a>
+              <a class="card-button repo" href="https://github.com/CWFht/lotteplan" target="_blank" rel="noopener noreferrer">저장소</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card" data-keywords="모바일 통신향 자급제 비교 TCO 계산기 휴대폰 통신비 총소유비용 선택약정 지원금">
+          <div class="card-content">
+            <div class="topline">
+              <div class="icon-box" style="--accent:#7440ff; --accent-bg:#f4f3ff;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="7" y="2.5" width="10" height="19" rx="3" />
+                  <path d="M11 18h2" stroke-linecap="round" />
+                  <path d="M10 6h4" stroke-linecap="round" />
+                </svg>
+              </div>
+              <span class="tag" style="--accent:#7440ff;">MOBILE TCO</span>
+            </div>
+            <h3>모바일 통신향·자급제 비교</h3>
+            <p>휴대폰 구매 방식별 2년 총 통신비를 비교해 통신향 제품과 자급제의 실질 차이를 계산합니다.</p>
+            <div class="card-actions">
+              <a class="card-button open" style="--accent:#7440ff; --accent-deep:#5925dc;" href="https://cwfht.github.io/mobile-tco-calculatorjmj/" target="_blank" rel="noopener noreferrer">페이지 열기</a>
+              <a class="card-button repo" href="https://github.com/CWFht/mobile-tco-calculatorjmj" target="_blank" rel="noopener noreferrer">저장소</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card" data-keywords="하이마트 쇼핑몰 제품 검색툴 제품검색 검색 추천 냉장고 가전 공식몰">
+          <div class="card-content">
+            <div class="topline">
+              <div class="icon-box" style="--accent:#0ba5ec; --accent-bg:#f0f9ff;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M6 8h13l-1.2 8.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 4H3" stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="9" cy="20" r="1" />
+                  <circle cx="17" cy="20" r="1" />
+                </svg>
+              </div>
+              <span class="tag" style="--accent:#0ba5ec;">SEARCH</span>
+            </div>
+            <h3>하이마트 쇼핑몰 제품 검색툴</h3>
+            <p>낮은 수준의 검색어도 제품군으로 연결해 하이마트 공식몰 검색 접근을 돕는 제품 검색 보조 도구입니다.</p>
+            <div class="card-actions">
+              <a class="card-button open" style="--accent:#0ba5ec; --accent-deep:#0086c9;" href="https://cwfht.github.io/serchhiamrtjmj/" target="_blank" rel="noopener noreferrer">페이지 열기</a>
+              <a class="card-button repo" href="https://github.com/CWFht/serchhiamrtjmj" target="_blank" rel="noopener noreferrer">저장소</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="empty" id="emptyMessage">검색 결과가 없습니다. 다른 키워드로 다시 검색해 주세요.</div>
+    </section>
+
+    <div class="notice">
+      <strong>업로드 방법</strong><br />
+      이 파일을 새 GitHub 저장소의 <strong>index.html</strong>로 저장한 뒤 GitHub Pages를 켜면 통합 접속 페이지로 사용할 수 있습니다.
+      각 도구의 실제 페이지 주소가 다르게 열릴 경우, 카드 안의 <strong>href</strong> 주소만 현재 GitHub Pages 주소로 바꿔주면 됩니다.
+    </div>
+
+    <footer>
+      © 업무 도구 통합센터 · 상담 중 빠르게 여는 실전용 링크 허브
+    </footer>
+  </main>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const cards = Array.from(document.querySelectorAll(".tool-card"));
+    const visibleCount = document.getElementById("visibleCount");
+    const emptyMessage = document.getElementById("emptyMessage");
+
+    function normalizeText(value) {
+      return value.toLowerCase().replace(/\s+/g, "");
+    }
+
+    function filterCards() {
+      const query = normalizeText(searchInput.value.trim());
+      let count = 0;
+
+      cards.forEach((card) => {
+        const title = card.querySelector("h3")?.textContent || "";
+        const desc = card.querySelector("p")?.textContent || "";
+        const keywords = card.dataset.keywords || "";
+        const haystack = normalizeText(`${title} ${desc} ${keywords}`);
+        const matched = !query || haystack.includes(query);
+
+        card.style.display = matched ? "block" : "none";
+        if (matched) count += 1;
+      });
+
+      visibleCount.textContent = count;
+      emptyMessage.style.display = count === 0 ? "block" : "none";
+    }
+
+    searchInput.addEventListener("input", filterCards);
+  </script>
+</body>
+</html>
