@@ -692,7 +692,7 @@
       cards.forEach((card) => {
         const title = card.querySelector("h3")?.textContent || "";
         const desc = card.querySelector("p")?.textContent || "";
-        const keywords = card.dataset.keywords || "";
+        const keywords = card.dataset.keywords || "";  
         const haystack = normalizeText(`${title} ${desc} ${keywords}`);
         const matched = !query || haystack.includes(query);
 
