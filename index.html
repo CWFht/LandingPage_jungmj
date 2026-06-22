@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>업무 도구 통합센터</title>
-  <meta name="description" content="카드 혜택 계산기, 구독 계산기, 플랜카드 계산기, 모바일 TCO 계산기, 하이마트 제품 검색툴, 바코드 인식기, 코웨이 상담, 에어컨 추가 설치비 확인 페이지를 한곳에서 바로 접속하는 통합 랜딩페이지" />
+  <meta name="description" content="카드 혜택 계산기, 구독 계산기, 플랜카드 계산기, 모바일 TCO 계산기, 하이마트 제품 검색툴, 바코드 인식기, 코웨이 상담, 에어컨 추가 설치비, 에어컨 시뮬레이터를 한곳에서 바로 접속하는 통합 랜딩페이지" />
   <meta name="theme-color" content="#101828" />
 
   <style>
@@ -338,6 +338,10 @@
       padding-top: 20px;
     }
 
+    .card-actions.dual {
+      grid-template-columns: 1fr 1fr;
+    }
+
     .card-button {
       display: inline-flex;
       align-items: center;
@@ -414,6 +418,12 @@
       }
     }
 
+    @media (max-width: 360px) {
+      .card-actions.dual {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       * {
         scroll-behavior: auto !important;
@@ -435,7 +445,7 @@
         <h1 id="page-title">업무 도구<br />통합센터</h1>
 
         <p class="hero-copy">
-          카드 혜택, 구독 비교, 플랜카드, 모바일 TCO, 하이마트 제품 검색, 바코드 인식, 코웨이 상담, 에어컨 추가 설치비까지
+          카드 혜택, 구독 비교, 플랜카드, 모바일 TCO, 하이마트 제품 검색, 바코드 인식, 코웨이 상담, 에어컨 추가 설치비, 에어컨 시뮬레이터까지
           자주 쓰는 계산기와 검색툴을 한곳에 모았습니다. 모바일 상담 중에도 필요한 페이지를
           빠르게 열 수 있도록 카드형 랜딩페이지로 구성했습니다.
         </p>
@@ -468,11 +478,12 @@
         </div>
 
         <div class="count-pill">
-          <span id="visibleCount">8</span>개 도구
+          <span id="visibleCount">9</span>개 도구
         </div>
       </div>
 
       <div class="grid" id="toolGrid">
+
         <article class="tool-card featured" style="--accent-bg:#eef4ff;" data-keywords="카드 혜택 계산기 카드혜택 할인 캐시백 결제 혜택">
           <div class="card-content">
             <div class="topline">
@@ -566,25 +577,52 @@
           </div>
         </article>
 
-        <article class="tool-card" style="--accent-bg:#f0f9ff;" data-keywords="하이마트 쇼핑몰 제품 검색툴 제품검색 검색 추천 냉장고 가전 공식몰">
+        <article class="tool-card" style="--accent-bg:#f5f8ff;" data-keywords="에어컨 시뮬레이터 에어컨 바람 냉방 배치 비교 airflow aircon 거실 벽걸이 스탠드">
           <div class="card-content">
             <div class="topline">
-              <div class="icon-box" style="--accent:#0ba5ec; --accent-bg:#f0f9ff;">
+              <div class="icon-box" style="--accent:#2e90fa; --accent-bg:#f5f8ff;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path d="M6 8h13l-1.2 8.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 4H3" stroke-linecap="round" stroke-linejoin="round" />
-                  <circle cx="9" cy="20" r="1" />
-                  <circle cx="17" cy="20" r="1" />
+                  <path d="M4 7h16" stroke-linecap="round" />
+                  <path d="M6 11h10a3 3 0 1 0-3-3" stroke-linecap="round" />
+                  <path d="M4 15h13a3 3 0 1 1-3 3" stroke-linecap="round" />
+                  <path d="M6 19h5" stroke-linecap="round" />
+                </svg>
+              </div>
+              <span class="tag" style="--accent:#2e90fa;">AIRFLOW</span>
+            </div>
+
+            <h3>에어컨 시뮬레이터</h3>
+            <p>에어컨 타입과 배치에 따른 바람 흐름, 냉방 도달 느낌을 비교해 상담에 활용하는 시뮬레이터입니다.</p>
+
+            <div class="card-actions dual">
+              <a class="card-button open" style="--accent:#2e90fa; --accent-deep:#1570ef;" href="https://cwfht.github.io/ac_airflow/" target="_blank" rel="noopener noreferrer">시뮬레이터 1</a>
+              <a class="card-button open" style="--accent:#2e90fa; --accent-deep:#1570ef;" href="https://cwfht.github.io/ac_airflow2/" target="_blank" rel="noopener noreferrer">시뮬레이터 2</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card" style="--accent-bg:#eff8ff;" data-keywords="에어컨 추가 설치비 설치비 설치비용 추가비용 배관 타공 실외기 외부작업 aircon">
+          <div class="card-content">
+            <div class="topline">
+              <div class="icon-box" style="--accent:#1570ef; --accent-bg:#eff8ff;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="4" y="5" width="16" height="7" rx="2" />
+                  <path d="M7 15h10" stroke-linecap="round" />
+                  <path d="M8 18h8" stroke-linecap="round" />
+                  <path d="M9 21h6" stroke-linecap="round" />
+                  <path d="M8 9h.01" stroke-linecap="round" />
+                  <path d="M12 9h4" stroke-linecap="round" />
                 </svg>
               </div>
 
-              <span class="tag" style="--accent:#0ba5ec;">SEARCH</span>
+              <span class="tag" style="--accent:#1570ef;">AIRCON</span>
             </div>
 
-            <h3>하이마트 쇼핑몰 제품 검색툴</h3>
-            <p>낮은 수준의 검색어도 제품군으로 연결해 하이마트 공식몰 검색 접근을 돕는 제품 검색 보조 도구입니다.</p>
+            <h3>에어컨 추가 설치비</h3>
+            <p>배관, 타공, 실외기 위치, 외부작업 등 에어컨 설치 시 발생할 수 있는 추가 비용을 미리 확인하는 페이지입니다.</p>
 
             <div class="card-actions">
-              <a class="card-button open" style="--accent:#0ba5ec; --accent-deep:#0086c9;" href="https://cwfht.github.io/serchhiamrtjmj/" target="_blank" rel="noopener noreferrer">바로가기</a>
+              <a class="card-button open" style="--accent:#1570ef; --accent-deep:#175cd3;" href="https://cwfht.github.io/aircon_extra_free_check/" target="_blank" rel="noopener noreferrer">바로가기</a>
             </div>
           </div>
         </article>
@@ -614,28 +652,25 @@
           </div>
         </article>
 
-        <article class="tool-card" style="--accent-bg:#eff8ff;" data-keywords="에어컨 추가 설치비 설치비 설치비용 추가비용 배관 타공 실외기 외부작업 aircon">
+        <article class="tool-card" style="--accent-bg:#f0f9ff;" data-keywords="하이마트 쇼핑몰 제품 검색툴 제품검색 검색 추천 냉장고 가전 공식몰">
           <div class="card-content">
             <div class="topline">
-              <div class="icon-box" style="--accent:#1570ef; --accent-bg:#eff8ff;">
+              <div class="icon-box" style="--accent:#0ba5ec; --accent-bg:#f0f9ff;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <rect x="4" y="5" width="16" height="7" rx="2" />
-                  <path d="M7 15h10" stroke-linecap="round" />
-                  <path d="M8 18h8" stroke-linecap="round" />
-                  <path d="M9 21h6" stroke-linecap="round" />
-                  <path d="M8 9h.01" stroke-linecap="round" />
-                  <path d="M12 9h4" stroke-linecap="round" />
+                  <path d="M6 8h13l-1.2 8.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 4H3" stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="9" cy="20" r="1" />
+                  <circle cx="17" cy="20" r="1" />
                 </svg>
               </div>
 
-              <span class="tag" style="--accent:#1570ef;">AIRCON</span>
+              <span class="tag" style="--accent:#0ba5ec;">SEARCH</span>
             </div>
 
-            <h3>에어컨 추가 설치비</h3>
-            <p>배관, 타공, 실외기 위치, 외부작업 등 에어컨 설치 시 발생할 수 있는 추가 비용을 미리 확인하는 페이지입니다.</p>
+            <h3>하이마트 쇼핑몰 제품 검색툴</h3>
+            <p>낮은 수준의 검색어도 제품군으로 연결해 하이마트 공식몰 검색 접근을 돕는 제품 검색 보조 도구입니다.</p>
 
             <div class="card-actions">
-              <a class="card-button open" style="--accent:#1570ef; --accent-deep:#175cd3;" href="https://cwfht.github.io/aircon_extra_free_check/" target="_blank" rel="noopener noreferrer">바로가기</a>
+              <a class="card-button open" style="--accent:#0ba5ec; --accent-deep:#0086c9;" href="https://cwfht.github.io/serchhiamrtjmj/" target="_blank" rel="noopener noreferrer">바로가기</a>
             </div>
           </div>
         </article>
