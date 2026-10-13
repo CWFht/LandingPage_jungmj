@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>업무 도구 통합센터</title>
-  <meta name="description" content="카드 혜택 계산기, 구독 계산기, 플랜카드 계산기, 모바일 TCO 계산기, 하이마트 제품 검색툴, 바코드 인식기, 코웨이 상담, 에어컨 추가 설치비, 에어컨 시뮬레이터, 애플 상담북, 모바일 TCO계산기(알뜰폰)를 한곳에서 바로 접속하는 통합 랜딩페이지" />
+  <meta name="description" content="카드 혜택 계산기, 세트견적, 구독 요약, 플랜카드 계산기, 모바일 TCO 계산기, 애플 상담북, 에어컨 시뮬레이터, 에어컨 추가 설치비, 코웨이 상담, 하이마트 제품 검색툴, 바코드 인식기를 한곳에서 바로 접속하는 통합 랜딩페이지" />
   <meta name="theme-color" content="#101828" />
 
   <style>
@@ -445,9 +445,9 @@
         <h1 id="page-title">업무 도구<br />통합센터</h1>
 
         <p class="hero-copy">
-          카드 혜택, 구독 비교, 플랜카드, 모바일 TCO, 하이마트 제품 검색, 바코드 인식, 코웨이 상담, 에어컨 추가 설치비, 에어컨 시뮬레이터, 애플 상담북, 모바일 TCO계산기(알뜰폰)까지
-          자주 쓰는 계산기와 검색툴을 한곳에 모았습니다. 모바일 상담 중에도 필요한 페이지를
-          빠르게 열 수 있도록 카드형 랜딩페이지로 구성했습니다.
+          카드 혜택, 세트견적, 구독 요약, 플랜카드, 모바일 TCO, 애플 상담북, 에어컨 시뮬레이터,
+          에어컨 추가 설치비, 코웨이 상담, 하이마트 제품 검색, 바코드 인식까지 자주 쓰는 도구를
+          한곳에 모았습니다. 모바일 상담 중에도 필요한 페이지를 빠르게 열 수 있도록 카드형 랜딩페이지로 구성했습니다.
         </p>
       </div>
     </section>
@@ -464,7 +464,7 @@
         <input
           id="searchInput"
           type="search"
-          placeholder="필요한 도구 검색하기 예: 카드, 구독, TCO, 알뜰폰, 코웨이, 에어컨, 애플"
+          placeholder="필요한 도구 검색하기 예: 카드, 세트견적, 구독, TCO, 알뜰폰, 애플, 에어컨"
           autocomplete="off"
         />
       </label>
@@ -478,11 +478,12 @@
         </div>
 
         <div class="count-pill">
-          <span id="visibleCount">11</span>개 도구
+          <span id="visibleCount">12</span>개 도구
         </div>
       </div>
 
       <div class="grid" id="toolGrid">
+
 
         <article class="tool-card featured" style="--accent-bg:#eef4ff;" data-keywords="카드 혜택 계산기 카드혜택 할인 캐시백 결제 혜택">
           <div class="card-content">
@@ -506,27 +507,51 @@
             </div>
           </div>
         </article>
+        <article class="tool-card small" style="--accent-bg:#fef6ee;" data-keywords="세트견적 세트 견적 혼수 입주 다품목 견적 패키지 견적 가전 세트">
+          <div class="card-content">
+            <div class="topline">
+              <div class="icon-box" style="--accent:#f97316; --accent-bg:#fef6ee;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M5 6.5h14" stroke-linecap="round" />
+                  <path d="M5 11.5h14" stroke-linecap="round" />
+                  <path d="M5 16.5h8" stroke-linecap="round" />
+                  <path d="M16 15l1.5 1.5L21 13" stroke-linecap="round" stroke-linejoin="round" />
+                  <rect x="3.5" y="3.5" width="17" height="17" rx="3" />
+                </svg>
+              </div>
 
-        <article class="tool-card small" style="--accent-bg:#ecfdf3;" data-keywords="구독 계산기 안심케어 홈서비스 클리닝 보증 일반구매 구독구매">
+              <span class="tag" style="--accent:#f97316;">SET QUOTE</span>
+            </div>
+
+            <h3>세트견적</h3>
+            <p>혼수, 입주, 다품목 구매 상담에서 제품 조합과 견적 흐름을 빠르게 정리하는 세트 견적 도구입니다.</p>
+
+            <div class="card-actions">
+              <a class="card-button open" style="--accent:#f97316; --accent-deep:#ea580c;" href="https://script.google.com/macros/s/AKfycbyW74d5sWwJfJvBisjgmFP_cth-ln-cc6DSD1gumk91_76T40wKuguGdbqEsJFrjWM9/exec" target="_blank" rel="noopener noreferrer">바로가기</a>
+            </div>
+          </div>
+        </article>
+        <article class="tool-card" style="--accent-bg:#ecfdf3;" data-keywords="구독 요약 구독계산 요약 구독 상담 안심케어 홈서비스 클리닝 보증 구독구매">
           <div class="card-content">
             <div class="topline">
               <div class="icon-box" style="--accent:#12b76a; --accent-bg:#ecfdf3;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path d="M7 7h10" stroke-linecap="round" />
-                  <path d="M7 12h7" stroke-linecap="round" />
-                  <path d="M7 17h4" stroke-linecap="round" />
+                  <path d="M7 11h10" stroke-linecap="round" />
+                  <path d="M7 15h6" stroke-linecap="round" />
+                  <path d="M15.5 16.5l1.5 1.5 3-3" stroke-linecap="round" stroke-linejoin="round" />
                   <rect x="4" y="3" width="16" height="18" rx="4" />
                 </svg>
               </div>
 
-              <span class="tag" style="--accent:#12b76a;">SUBSCRIBE</span>
+              <span class="tag" style="--accent:#12b76a;">SUMMARY</span>
             </div>
 
-            <h3>구독 계산기</h3>
-            <p>일반구매와 구독구매의 총액, 보증, 클리닝 혜택을 상담용으로 비교하는 계산기입니다.</p>
+            <h3>구독 요약</h3>
+            <p>구독 상담 후 핵심 조건과 고객 안내 내용을 간단하게 정리해 확인할 수 있는 요약 페이지입니다.</p>
 
             <div class="card-actions">
-              <a class="card-button open" style="--accent:#12b76a; --accent-deep:#039855;" href="https://cwfht.github.io/homecwfht.github.io/" target="_blank" rel="noopener noreferrer">바로가기</a>
+              <a class="card-button open" style="--accent:#12b76a; --accent-deep:#039855;" href="https://script.google.com/macros/s/AKfycbxY59LBeH7D9c8W-yVxsSuDOsT5hf6hU0locRJEMeyi0-Us4x4pf9uIUcDS-ymxQ9u2/exec" target="_blank" rel="noopener noreferrer">바로가기</a>
             </div>
           </div>
         </article>
